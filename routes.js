@@ -10,32 +10,18 @@ appObject.use('/', (req, res, next) => {
 });
 
 router.get('/shutdown', (req,res,next) => {
-  new Promise((resolve, reject) => {
-    exec('say "Unmounting Drive"', (err, out, error) => {
-      resolve();
-    })
-  }).then(() => {
-    return new Promise((resolve, rej) => {
-      exec('umount /media/pi', (err, out, error) => {
-        resolve();
-      })
-    })
-  }).then(() => {
-      exec('say "Drive unmounted, proceeding to shutdown"', (err, out, error) => {
+  exec('umount /media/pi/Back\\ UP\\ of\\ DATA\\ BACKUP\\ 2', (err, out, error) => {
 
-        setTimeout(() => {
-          exec('shutdown now', () => {
-            console.info('shutting down')
-          });
-        }, 5000);
+    setTimeout(() => {
+      exec('shutdown now', () => {
+        console.info('shutting down')
+      });
+    }, 5000);
 
-        res.send({
-          message: "complete"
-        });
+    res.send({
+      message: "complete"
+    });
 
-      })
-  }).catch((err) => {
-    console.error(err);
   })
 });
 
