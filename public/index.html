@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Shutdown</title>
+  <link rel="stylesheet" href="">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+</head>
+<body>
+  <div style="text-align: center;">
+    <button id="shutdown" type="button" style=" background-color: #191919; color: #FFF; padding: 50px 10px; border-radius: 50px; width: 80%; font-size: 30px;"> SHUTDOWN Pi </button>
+  </div>
+</body>
+<script>
+  const shutdown = document.getElementById('shutdown');
+  shutdown.addEventListener('click', () => {
+    if(confirm('Shutdown Pi ?')) {
+      shutdown.style.backgroundColor = '#999999';
+      shutdown.innerHTML = 'Shutting down...';
+      shutdown.disabled = true;
+      axios.get('/shutdown')
+        .then((response) => {
+          console.log(response);
+          shutdown.innerHTML = 'Shutdown complete';
+        })
+        .catch((err) => {
+          console.error(err);
+        })
+    }
+  })
+</script>
+</html>
